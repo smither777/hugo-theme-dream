@@ -15,47 +15,9 @@
       {{ if site.Params.customTypographyLogo }}
       <!-- Custom Typography Logo for PinoyBenefits.ph -->
       <a href="{{ site.BaseURL }}" class="flex items-center group cursor-pointer">
-        <div class="flex items-center gap-3">
-          <!-- Philippine Flag Icon -->
-          <div class="w-8 h-6 md:w-10 md:h-7 flex-shrink-0 rounded-sm overflow-hidden shadow-sm group-hover:shadow-md transition-shadow duration-300">
-            <svg viewBox="0 0 40 24" class="w-full h-full">
-              <!-- Blue field -->
-              <rect x="0" y="0" width="40" height="12" fill="#0038a8"/>
-              <!-- Red field -->
-              <rect x="0" y="12" width="40" height="12" fill="#ce1126"/>
-              <!-- White triangle -->
-              <polygon points="0,0 16,12 0,24" fill="#ffffff"/>
-              <!-- Sun -->
-              <circle cx="8" cy="8" r="2.5" fill="#fcd116"/>
-              <!-- Sun rays (simplified) -->
-              <g fill="#fcd116" stroke="#fcd116" stroke-width="0.3">
-                <line x1="8" y1="4.5" x2="8" y2="3.5"/>
-                <line x1="10.5" y1="8" x2="11.5" y2="8"/>
-                <line x1="8" y1="11.5" x2="8" y2="12.5"/>
-                <line x1="5.5" y1="8" x2="4.5" y2="8"/>
-                <line x1="9.8" y1="6.2" x2="10.4" y2="5.6"/>
-                <line x1="9.8" y1="9.8" x2="10.4" y2="10.4"/>
-                <line x1="6.2" y1="9.8" x2="5.6" y2="10.4"/>
-                <line x1="6.2" y1="6.2" x2="5.6" y2="5.6"/>
-              </g>
-              <!-- Stars (simplified) -->
-              <polygon points="4,16 4.5,17.5 6,17.5 4.8,18.5 5.3,20 4,19 2.7,20 3.2,18.5 2,17.5 3.5,17.5" fill="#fcd116"/>
-              <polygon points="8,17 8.5,18.5 10,18.5 8.8,19.5 9.3,21 8,20 6.7,21 7.2,19.5 6,18.5 7.5,18.5" fill="#fcd116"/>
-              <polygon points="12,16 12.5,17.5 14,17.5 12.8,18.5 13.3,20 12,19 10.7,20 11.2,18.5 10,17.5 11.5,17.5" fill="#fcd116"/>
-            </svg>
-          </div>
-          
-          <div class="typography-logo">
-            <h1 class="text-xl md:text-2xl font-extrabold text-base-content leading-tight group-hover:text-primary transition-colors duration-300">
-              PinoyBenefits.ph
-            </h1>
-            {{ if site.Params.motto }}
-            <p class="text-xs md:text-sm text-base-content/70 font-medium mt-0.5 group-hover:text-base-content/90 transition-colors duration-300">
-              {{ site.Params.motto }}
-            </p>
-            {{ end }}
-          </div>
-        </div>
+        <h1 class="text-xl md:text-2xl font-extrabold text-base-content leading-tight group-hover:text-primary transition-colors duration-300">
+          🇵🇭 PinoyBenefits.ph
+        </h1>
       </a>
       {{ else }}
       <div class="avatar cursor-pointer hover:avatar-online" @click="flip = !flip" title="{{ T "flip" }}">
@@ -77,6 +39,27 @@
       </div>
       {{ end }}
       {{ end }}
+    </section>
+
+    <!-- Search Box -->
+    <section class="flex-1 max-w-md mx-4 hidden sm:block">
+      <div class="relative">
+        <input 
+          type="text" 
+          placeholder="Search..." 
+          class="input input-sm w-full pr-10 bg-base-200 border-base-300 focus:border-primary focus:outline-none text-sm"
+          x-data="{ searchQuery: '' }"
+          x-model="searchQuery"
+          @keydown.enter="window.location.href = '/search?q=' + encodeURIComponent(searchQuery)"
+        />
+        <button 
+          type="button" 
+          class="absolute right-2 top-1/2 transform -translate-y-1/2 text-base-content/60 hover:text-primary"
+          @click="window.location.href = '/search?q=' + encodeURIComponent($el.previousElementSibling.value)"
+        >
+          <ion-icon name="search" class="text-lg"></ion-icon>
+        </button>
+      </div>
     </section>
 
     {{ $navItems := slice "about" "search" "rss" "posts" "categories" "tags" }}
