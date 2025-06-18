@@ -6,29 +6,36 @@
   {{ end }}
 {{ end }}
 
-<link rel="canonical" href="{{ .Permalink }}" />
+{{/* SEO Title */}}
+<title>{{ with .Params.seo_title }}{{ . }}{{ else }}{{ .Title }}{{ end }} | {{ site.Title }}</title>
+
+{{/* Canonical URL */}}
+{{ with .Params.canonical_url }}
+  <link rel="canonical" href="{{ . }}" />
+{{ else }}
+  <link rel="canonical" href="{{ .Permalink }}" />
+{{ end }}
 
 {{ if eq .Type "posts" }}
 <!-- Page Author & Description -->
 <meta name="author" content="{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ site.Params.author }}{{ end }}" />
-<meta name="description" content="{{ (or .Description .Summary) | plainify }}" />
+<meta name="description" content="{{ with .Params.meta_description }}{{ . | plainify }}{{ else }}{{ (or .Description .Summary) | plainify }}{{ end }}" />
 
 <!-- Keywords -->
 {{- $keywords := slice }}
-{{- with .Keywords }}
-  {{- $keywords = . }}
-{{- else }}
-  {{- range .GetTerms "tags" }}
-    {{- $keywords = $keywords | append .Title }}
-  {{- else }}
-    {{- range $taxonomy, $_ := site.Taxonomies }}
-      {{- range $.GetTerms $taxonomy }}
-        {{- $keywords = $keywords | append .Title }}
-      {{- end }}
-    {{- end }}
-  {{- end }}
+{{- with .Params.tags }}
+  {{- $keywords = $keywords | append . ... }}
 {{- end }}
-<meta name="keywords" content="{{ delimit $keywords `,` }}">
+{{- with .Params.categories }}
+  {{- $keywords = $keywords | append . ... }}
+{{- end }}
+<meta name="keywords" content="{{ delimit $keywords "," }}">
+
+<!-- Open Graph & Twitter Image -->
+{{ with .Params.featured_image }}
+  <meta property="og:image" content="{{ . | absURL }}" />
+  <meta name="twitter:image" content="{{ . | absURL }}" />
+{{ end }}
 {{ else }}
 <!-- Site Author & Description -->
 <meta name="author" content="{{ site.Params.author }}" />
@@ -57,7 +64,6 @@
   background-image: url({{ site.Params.backgroundImage | relURL }});
 }
 {{ end }}
-
 {{ if site.Params.backgroundImageDark }}
 html.dark #dream-global-bg {
   background-image: url({{ site.Params.backgroundImageDark | relURL }});
