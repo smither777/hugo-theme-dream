@@ -75,3 +75,46 @@ html.dark #dream-global-bg {
 }
 </style>
 {{ end }}
+
+{{ if site.Params.customTypographyLogo }}
+<style>
+/* Custom Typography Logo Styles */
+.typography-logo h1 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.typography-logo p {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.025em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .typography-logo h1 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  .typography-logo p {
+    font-size: 0.75rem;
+  }
+}
+
+/* Dark mode adjustments */
+html.dark .typography-logo h1 {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa, #34d399);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .typography-logo h1:hover {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #10b981);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
+{{ end }}

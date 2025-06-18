@@ -12,6 +12,21 @@
   <div class="container flex justify-between px-4">
   {{ end }}
     <section class="flex items-center gap-4">
+      {{ if site.Params.customTypographyLogo }}
+      <!-- Custom Typography Logo for PinoyBenefits.ph -->
+      <a href="{{ site.BaseURL }}" class="flex items-center group cursor-pointer">
+        <div class="typography-logo">
+          <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent hover:from-blue-700 hover:via-purple-700 hover:to-green-700 transition-all duration-300 transform group-hover:scale-105">
+            Pinoy<span class="text-yellow-500 font-extrabold">Benefits</span><span class="text-red-500 font-normal">.ph</span>
+          </h1>
+          {{ if site.Params.motto }}
+          <p class="text-xs md:text-sm text-base-content/70 font-medium mt-1 group-hover:text-base-content/90 transition-colors duration-300">
+            {{ site.Params.motto }}
+          </p>
+          {{ end }}
+        </div>
+      </a>
+      {{ else }}
       <div class="avatar cursor-pointer hover:avatar-online" @click="flip = !flip" title="{{ T "flip" }}">
         <div class="h-10 rounded-full">
           <img src="{{ site.Params.avatar | relURL }}" alt="{{ site.Params.headerTitle }}" />
@@ -29,6 +44,7 @@
         <div class="text-base-content/60 text-sm">{{ site.Params.motto }}</div>
         {{ end }}
       </div>
+      {{ end }}
       {{ end }}
     </section>
 
