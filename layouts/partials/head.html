@@ -24,10 +24,14 @@
 <!-- Keywords -->
 {{- $keywords := slice }}
 {{- with .Params.tags }}
-  {{- $keywords = $keywords | append . ... }}
+  {{- range . }}
+    {{- $keywords = $keywords | append . }}
+  {{- end }}
 {{- end }}
 {{- with .Params.categories }}
-  {{- $keywords = $keywords | append . ... }}
+  {{- range . }}
+    {{- $keywords = $keywords | append . }}
+  {{- end }}
 {{- end }}
 <meta name="keywords" content="{{ delimit $keywords "," }}">
 
@@ -57,17 +61,17 @@
 {{ end }}
 <link rel="stylesheet" href="{{ $outputCss.RelPermalink }}" />
 
-{{ if or site.Params.backgroundImage site.Params.backgroundImageDark }}
-<style>
 {{ if site.Params.backgroundImage }}
+<style>
 #dream-global-bg {
-  background-image: url({{ site.Params.backgroundImage | relURL }});
+  background-image: url("{{ site.Params.backgroundImage | relURL }}");
 }
+</style>
 {{ end }}
 {{ if site.Params.backgroundImageDark }}
+<style>
 html.dark #dream-global-bg {
-  background-image: url({{ site.Params.backgroundImageDark | relURL }});
+  background-image: url("{{ site.Params.backgroundImageDark | relURL }}");
 }
-{{ end }}
 </style>
 {{ end }}
